@@ -1,3 +1,3 @@
-export function helloWorld(){
-    return 'hello Webpack123'
+export const helloWorld = () => {
+    return 'hello Webpack123456'
 }
