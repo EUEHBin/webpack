@@ -2,6 +2,7 @@
 const path = require('path')
 const webpack = require('webpack') // 引入webpack
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
 module.exports = {
     /*******单入口**********/
@@ -21,7 +22,7 @@ module.exports = {
     // output没有单入口、多入口的区别
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: '[name][chunkhash:8].js' // 使用chunkhash
+        filename: '[name].js'
     },
     mode: 'development',
     module: {
@@ -62,7 +63,6 @@ module.exports = {
                 use: { // 也可以使用url-loader解析图片，其中options可以设置图片大小
                     loader: 'url-loader', // url-loader内部也是使用file-loader
                     options: {
-                        name:'img/[name][hash:8].[ext]', // 设置图片哈希
                         limit: 10240 // （字节）大小小于10240（10k）的时候，webpack自动做一个base64转换
                     }
                 }
@@ -79,9 +79,10 @@ module.exports = {
         poll: 1000
     },
     plugins: [
-        new webpack.MiniCssExtractPlugin({
-            filename: '[name][contenthash:8].css'
-        })
+        // new webpack.MiniCssExtractPlugin({
+        //     filename: '[name][contenthash:8].css'
+        // })
+        new CleanWebpackPlugin(),
     ],
     devServer: {
         static: './dist',
